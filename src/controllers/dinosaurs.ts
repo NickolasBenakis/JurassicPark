@@ -81,7 +81,7 @@ const deleteDinosaur = (
   { params, response }: { params: { id: string }; request: any; response: any },
 ) => {
   const filteredDinosaurs: Array<Dinosaur> = dinosaurs.filter(
-    (product: Dinosaur) => (product.id !== params.id),
+    (dinosaur: Dinosaur) => (dinosaur.id !== params.id),
   );
   if (filteredDinosaurs.length === dinosaurs.length) {
     response.status(404);
