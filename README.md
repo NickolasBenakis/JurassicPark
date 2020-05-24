@@ -1,4 +1,4 @@
-# Agilisaurus
+# JurassicPark
 
 [<img src="deno-logo.svg" align="right" width="100">](https://deno.land)
 
