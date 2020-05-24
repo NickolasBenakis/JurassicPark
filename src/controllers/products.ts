@@ -53,7 +53,6 @@ const getProduct = (
 const addProduct = async (
   { request, response }: { request: any; response: any },
 ) => {
-
   if (!request.hasBody) {
     response.status = 400;
     response.body = {
@@ -61,7 +60,7 @@ const addProduct = async (
       msg: "No data",
     };
   } else {
-		const {value : productBody} = await request.body();
+    const { value : productBody } = await request.body();
     const product: Product = productBody;
     product.id = v4.generate();
     products.push(product);
@@ -73,62 +72,69 @@ const addProduct = async (
   }
 };
 
-const deleteProduct = ({params,response}: {params:{id:string},request: any, response: any}) => {
-	
-	const newProducts : Array<Product> = products.filter(
-		(product:Product)=>(product.id !== params.id))
-	if  (newProducts.length === products.length){
-		response.status(404);
-		response.body  =  {
-			success:  false,
-			msg: 'Not found'
-		}
-	} else {
-		products = newProducts;
-		response.status(200);
-		response.body = {
-			success:  true,
-			msg: `Product with id ${params.id} has been deleted`
-		}
-	}
+const deleteProduct = (
+  { params, response }: { params: { id: string }; request: any; response: any },
+) => {
+  const newProducts: Array<Product> = products.filter(
+    (product: Product) => (product.id !== params.id),
+  );
+  if (newProducts.length === products.length) {
+    response.status(404);
+    response.body = {
+      success: false,
+      msg: "Not found",
+    };
+  } else {
+    products = newProducts;
+    response.status(200);
+    response.body = {
+      success: true,
+      msg: `Product with id ${params.id} has been deleted`,
+    };
+  }
 };
 
+const updateProduct = async (
+  { params, request, response }: {
+    params: { id: string };
+    request: any;
+    response: any;
+  },
+) => {
+  const requestedProduct: Product | undefined = products.find(
+    (product: Product) => product.id === params.id,
+  );
 
-const updateProduct = async ({params,request,response}: {params:{id:string},request: any, response:any}) => {
-
-	const requestedProduct : Product | undefined = products.find(
-		(product:Product)=> product.id === params.id);
-	
-	if (requestedProduct){
-		const {value: updatedValue} = await request.body();
-		products = products.map((product:Product)=> {
-			if(product.id === params.id){
-				return {
-					...product,
-					updatedValue
-				};
-			} else {
-				return product;
-			}
-		})
-		response.status(200);
-		response.body({
-			success: true,
-			msg: `Product id ${params.id} updated`
-		})
-	} else {
-		response.status(404)
-		response.body({
-			success: false,
-			msg: `Not Found`
-		})
-	}
+  if (requestedProduct) {
+    const { value: updatedValue } = await request.body();
+    products = products.map((product: Product) => {
+      if (product.id === params.id) {
+        return {
+          ...product,
+          updatedValue,
+        };
+      } else {
+        return product;
+      }
+    });
+    response.status(200);
+    response.body({
+      success: true,
+      msg: `Product id ${params.id} updated`,
+    });
+  } else {
+    response.status(404);
+    response.body({
+      success: false,
+      msg: `Not Found`,
+    });
+  }
 };
 
 export {
-	updateProduct,
-	deleteProduct,
-	getProducts,
+  updateProduct,
+  deleteProduct,
+  getProducts,
   getProduct,
-  addProduct
-}
+  addProduct,
+};
