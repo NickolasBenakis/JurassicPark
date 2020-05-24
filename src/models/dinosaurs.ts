@@ -1,6 +1,6 @@
 import { Dinosaur } from "../types/types.ts";
 
-export let Dinosaurs: Array<Dinosaur> = [
+export const Dinosaurs: Array<Dinosaur> = [
   {
     id: "1",
     name: "Achillobator",

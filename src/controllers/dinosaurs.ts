@@ -87,34 +87,35 @@ const updateDinosaur = async (
   const requestedDinosaur: Dinosaur | undefined = Dinosaurs.find(
     (dinosaur: Dinosaur) => dinosaur.id === params.id,
   );
-
   if (requestedDinosaur) {
-    const { value: updatedValue } = await request.body();
-    const updatedDinosaurs = Dinosaurs.map(
+    const {value : updatedDinosaurBody} = await request.body();
+    const updatedDinosaurs : Array<Dinosaur> = Dinosaurs.map(
       (dinosaur: Dinosaur) => {
         if (dinosaur.id === params.id) {
           return {
             ...dinosaur,
-            updatedValue,
+            ...updatedDinosaurBody,
           };
         } else {
           return dinosaur;
         }
       },
     );
+    
     Dinosaurs.splice(0, Dinosaurs.length);
     Dinosaurs.push(...updatedDinosaurs);
+    console.log(Dinosaurs)
     response.status = 200;
-    response.body({
+    response.body ={
       success: true,
       msg: `Dinosaur id ${params.id} updated`,
-    });
+    };
   } else {
     response.status = 404;
-    response.body({
+    response.body = {
       success: false,
       msg: `Not Found`,
-    });
+    };
   }
 };
 
