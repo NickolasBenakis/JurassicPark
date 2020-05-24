@@ -62,7 +62,7 @@ export interface Dinosaur {
 
 - /api/v1/dinosaurs
 
-	```
+```
    {
     "success": true,
     "data": [
@@ -89,6 +89,7 @@ export interface Dinosaur {
       }
     ]
   }
+```
 
 - /api/v1/dinosaurs/1
 
@@ -105,5 +106,6 @@ export interface Dinosaur {
       }
     ]
   }
+```
   
   
