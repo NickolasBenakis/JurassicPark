@@ -22,14 +22,14 @@ let products: Array<Product> = [
   },
 ];
 
-export const getProducts = ({ response }: { response: any }) => {
+const getProducts = ({ response }: { response: any }) => {
   response.body = {
     success: true,
     data: products,
   };
 };
 
-export const getProduct = (
+const getProduct = (
   { params, response }: { params: { id: string }; response: any },
 ) => {
   const selectedProduct: Product | undefined = products.find((product) =>
@@ -50,7 +50,7 @@ export const getProduct = (
   }
 };
 
-export const addProduct = async (
+const addProduct = async (
   { request, response }: { request: any; response: any },
 ) => {
 
@@ -73,7 +73,7 @@ export const addProduct = async (
   }
 };
 
-export const deleteProduct = ({params,response}: {params:{id:string},request: any, response: any}) => {
+const deleteProduct = ({params,response}: {params:{id:string},request: any, response: any}) => {
 	
 	const newProducts : Array<Product> = products.filter(
 		(product:Product)=>(product.id !== params.id))
@@ -94,7 +94,7 @@ export const deleteProduct = ({params,response}: {params:{id:string},request: an
 };
 
 
-export const updateProduct = async ({params,request,response}: {params:{id:string},request: any, response:any}) => {
+const updateProduct = async ({params,request,response}: {params:{id:string},request: any, response:any}) => {
 
 	const requestedProduct : Product | undefined = products.find(
 		(product:Product)=> product.id === params.id);
@@ -124,3 +124,10 @@ export const updateProduct = async ({params,request,response}: {params:{id:strin
 		})
 	}
 };
+
+export {
+	updateProduct,
+	deleteProduct,
+	getProducts,
+	getProduct
+}
