@@ -1,11 +1,10 @@
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
 import {
-  Dinosaur,
-  Response,
+  Dinosaur
 } from "../types/types.ts";
 import { Dinosaurs } from "../models/dinosaurs.ts";
 
-const getDinosaurs = ({ response }: { response: Response }) => {
+const getDinosaurs = ({ response }: { response: any }) => {
   response.body = {
     success: true,
     data: Dinosaurs,
@@ -13,7 +12,7 @@ const getDinosaurs = ({ response }: { response: Response }) => {
 };
 
 const getDinosaur = (
-  { params, response }: { params: { id: string }; response: Response },
+  { params, response }: { params: { id: string }; response: any },
 ) => {
   const selectedDino: Dinosaur | undefined = Dinosaurs.find((dino) =>
     dino.id === params.id
@@ -34,7 +33,7 @@ const getDinosaur = (
 };
 
 const addDinosaur = async (
-  { request, response }: { request: any; response: Response },
+  { request, response }: { request: any; response: any },
 ) => {
   if (!request.hasBody) {
     response.status = 400;
@@ -56,7 +55,7 @@ const addDinosaur = async (
 };
 
 const deleteDinosaur = (
-  { params, response }: { params: { id: string }; response: Response },
+  { params, response }: { params: { id: string }; response: any },
 ) => {
   const filteredDinosaurs: Array<Dinosaur> = Dinosaurs.filter(
     (dinosaur: Dinosaur) => (dinosaur.id !== params.id),
@@ -82,7 +81,7 @@ const updateDinosaur = async (
   { params, request, response }: {
     params: { id: string };
     request: any;
-    response: Response;
+    response: any;
   },
 ) => {
   const requestedDinosaur: Dinosaur | undefined = Dinosaurs.find(

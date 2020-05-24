@@ -6,7 +6,6 @@ import {
   updateDinosaur,
   deleteDinosaur,
 } from "../controllers/dinosaurs.ts";
-
 const router = new Router();
 
 router.get("/api/v1/dinosaurs", getDinosaurs)
