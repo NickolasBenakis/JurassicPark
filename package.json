@@ -1,6 +1,0 @@
-{
-	"scripts": {
-		"start": "Deno run --allow-net server.ts",
-		"format": "Deno fmt"
-	}
-}

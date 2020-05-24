@@ -1,5 +1,5 @@
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
-import { Product } from "../types.ts";
+import { Product } from "../types/types.ts";
 
 let products: Array<Product> = [
   {
@@ -129,5 +129,6 @@ export {
 	updateProduct,
 	deleteProduct,
 	getProducts,
-	getProduct
+  getProduct,
+  addProduct
 }
