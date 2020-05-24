@@ -1,6 +1,7 @@
-export interface Product {
+export interface Dinosaur {
   id: string;
   name: string;
-  description: string;
-  price: number;
+  era: string;
+  area: string;
+  diet: string;
 }
