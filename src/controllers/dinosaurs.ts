@@ -1,10 +1,11 @@
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
 import {
   Dinosaur,
+  Response,
 } from "../types/types.ts";
 import { Dinosaurs } from "../models/dinosaurs.ts";
 
-const getDinosaurs = ({ response }: { response: any }) => {
+const getDinosaurs = ({ response }: { response: Response }) => {
   response.body = {
     success: true,
     data: Dinosaurs,
@@ -12,7 +13,7 @@ const getDinosaurs = ({ response }: { response: any }) => {
 };
 
 const getDinosaur = (
-  { params, response }: { params: { id: string }; response: any },
+  { params, response }: { params: { id: string }; response: Response },
 ) => {
   const selectedDino: Dinosaur | undefined = Dinosaurs.find((dino) =>
     dino.id === params.id
@@ -27,13 +28,13 @@ const getDinosaur = (
     response.status = 404;
     response.body = {
       success: false,
-      data: "Dinosaur Not Found",
+      msg: "Dinosaur Not Found",
     };
   }
 };
 
 const addDinosaur = async (
-  { request, response }: { request: any; response: any },
+  { request, response }: { request: any; response: Response },
 ) => {
   if (!request.hasBody) {
     response.status = 400;
@@ -55,7 +56,7 @@ const addDinosaur = async (
 };
 
 const deleteDinosaur = (
-  { params, response }: { params: { id: string }; request: any; response: any },
+  { params, response }: { params: { id: string }; response: Response },
 ) => {
   const filteredDinosaurs: Array<Dinosaur> = Dinosaurs.filter(
     (dinosaur: Dinosaur) => (dinosaur.id !== params.id),
@@ -81,15 +82,15 @@ const updateDinosaur = async (
   { params, request, response }: {
     params: { id: string };
     request: any;
-    response: any;
+    response: Response;
   },
 ) => {
   const requestedDinosaur: Dinosaur | undefined = Dinosaurs.find(
     (dinosaur: Dinosaur) => dinosaur.id === params.id,
   );
   if (requestedDinosaur) {
-    const {value : updatedDinosaurBody} = await request.body();
-    const updatedDinosaurs : Array<Dinosaur> = Dinosaurs.map(
+    const { value : updatedDinosaurBody } = await request.body();
+    const updatedDinosaurs: Array<Dinosaur> = Dinosaurs.map(
       (dinosaur: Dinosaur) => {
         if (dinosaur.id === params.id) {
           return {
@@ -101,12 +102,11 @@ const updateDinosaur = async (
         }
       },
     );
-    
+
     Dinosaurs.splice(0, Dinosaurs.length);
     Dinosaurs.push(...updatedDinosaurs);
-    console.log(Dinosaurs)
     response.status = 200;
-    response.body ={
+    response.body = {
       success: true,
       msg: `Dinosaur id ${params.id} updated`,
     };
