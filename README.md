@@ -4,7 +4,9 @@
 
 Deno is a simple, modern and secure runtime for JavaScript and TypeScript that uses V8 and is built in Rust.
 
-This is a simple Rest API build with OAK framework and Deno.
+This is a simple Rest API build with oak framework and Deno.
+
+Learn more about [Deno](https://github.com/denoland/deno) and [oak](https://github.com/oakserver/oak)
 
 
 
